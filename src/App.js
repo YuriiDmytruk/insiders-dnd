@@ -1,7 +1,9 @@
+import TabControl from "./components/TabControl";
+
 function App() {
   return (
     <div>
-      App
+      <TabControl />
     </div>
   );
 }
