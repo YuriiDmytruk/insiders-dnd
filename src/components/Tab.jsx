@@ -20,7 +20,7 @@ const Tab = ({ id, title, fixed, changeFixedState }) => {
         touchAction: 'none'
     }
 
-    const tabProps = fixed ? {} : { ...attributes, ...listeners };
+    const tabProps = { ...attributes, ...listeners };
 
     return (
         <div
