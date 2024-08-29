@@ -8,14 +8,22 @@ const TabControl = () => {
 
     const [tabs, setTabs] = useState(
         [
-            { id: 1, title: 'Object1' },
-            { id: 2, title: 'Object2' },
-            { id: 3, title: 'Object3' },
-            { id: 4, title: 'Object4' },
-            { id: 5, title: 'Object5' },
-            { id: 6, title: 'Object6' },
+            { id: 1, title: 'Object1', fixed: false },
+            { id: 2, title: 'Object2', fixed: true },
+            { id: 3, title: 'Object3', fixed: false },
+            { id: 4, title: 'Object4', fixed: false },
+            { id: 5, title: 'Object5', fixed: false },
+            { id: 6, title: 'Object6', fixed: false },
         ]
     )
+
+    const changeFixedState = (id) => {
+        setTabs(prevTabs =>
+            prevTabs.map(tab =>
+                tab.id === id ? { ...tab, fixed: !tab.fixed } : tab
+            )
+        );
+    };
 
     const getTaskPosition = id => tabs.findIndex(tab => tab.id === id)
 
@@ -42,7 +50,7 @@ const TabControl = () => {
 
     return (
         <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
-            <TabList tabs={tabs} />
+            <TabList tabs={tabs} changeFixedState={changeFixedState}/>
         </DndContext>
     )
 }

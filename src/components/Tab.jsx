@@ -1,8 +1,11 @@
 import { useSortable } from "@dnd-kit/sortable"
 
 import { CSS } from "@dnd-kit/utilities"
+import { useState } from "react"
 
-const Tab = ({ id, title }) => {
+const Tab = ({ id, title, fixed, changeFixedState }) => {
+
+    const [showDropDown, setShowDropDown] = useState(false)
 
     const {
         attributes,
@@ -17,14 +20,24 @@ const Tab = ({ id, title }) => {
         touchAction: 'none'
     }
 
+    const tabProps = fixed ? {} : { ...attributes, ...listeners };
+
     return (
         <div
-        className="bg-yellow-300"
+            className="bg-yellow-300 relative"
+            onMouseEnter={() => setShowDropDown(prevState => !prevState)}
+            onMouseLeave={() => setShowDropDown(prevState => !prevState)}
             ref={setNodeRef}
-            {...attributes}
-            {...listeners}
+            {...tabProps}
             style={style}>
             {title}
+            {showDropDown &&
+                <div 
+                onMouseDown={() => changeFixedState(id)}
+                className={`absolute w-10 h-4 ${fixed ? 'bg-red-500' : 'bg-green-500'}`}>
+
+                </div>
+            }
         </div>
     )
 }
