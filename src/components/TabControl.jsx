@@ -1,4 +1,4 @@
-import { closestCorners, DndContext, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core"
+import { closestCorners, DndContext, DragOverlay, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { useState } from "react"
 import TabList from "./TabList"
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable"
@@ -41,7 +41,13 @@ const TabControl = () => {
             const originalPos = getTaskPosition(active.id)
             const newPos = getTaskPosition(over.id)
 
-            return arrayMove(tabs, originalPos, newPos)
+            const newTabs = arrayMove(tabs, originalPos, newPos).sort((a, b) => {
+                if (a.fixed && !b.fixed) return -1;
+                if (!a.fixed && b.fixed) return 1;
+                return 0;
+            });
+
+            return newTabs
         })
     }
 
@@ -56,6 +62,11 @@ const TabControl = () => {
     return (
         <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
             <TabList tabs={tabs} changeFixedState={changeFixedState} />
+            <DragOverlay>
+                <div className=''>
+
+                </div>
+            </DragOverlay>
         </DndContext>
     )
 }
