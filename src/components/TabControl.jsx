@@ -1,7 +1,7 @@
-import { closestCorners, DndContext } from "@dnd-kit/core"
+import { closestCorners, DndContext, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { useState } from "react"
 import TabList from "./TabList"
-import { arrayMove } from "@dnd-kit/sortable"
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable"
 
 
 const TabControl = () => {
@@ -30,8 +30,16 @@ const TabControl = () => {
         })
     }
 
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(TouchSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates
+        })
+    )
+
     return (
-        <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
             <TabList tabs={tabs} />
         </DndContext>
     )

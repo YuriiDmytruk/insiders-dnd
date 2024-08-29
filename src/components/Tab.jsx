@@ -1,6 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable"
 
-import {CSS} from "@dnd-kit/utilities"
+import { CSS } from "@dnd-kit/utilities"
 
 const Tab = ({ id, title }) => {
 
@@ -13,12 +13,16 @@ const Tab = ({ id, title }) => {
 
     const style = {
         transition,
-        transform: CSS.Transform.toString(transform)
-
+        transform: CSS.Transform.toString(transform),
+        touchAction: 'none'
     }
 
     return (
-        <div ref={setNodeRef} {...attributes} {...listeners} style={style}>{title}</div>
+        <div
+            ref={setNodeRef}
+            {...attributes}
+            {...listeners}
+            style={style}>{title}</div>
     )
 }
 
