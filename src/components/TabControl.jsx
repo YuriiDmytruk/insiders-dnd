@@ -12,6 +12,8 @@ const TabControl = () => {
             { id: 2, title: 'Object2' },
             { id: 3, title: 'Object3' },
             { id: 4, title: 'Object4' },
+            { id: 5, title: 'Object5' },
+            { id: 6, title: 'Object6' },
         ]
     )
 

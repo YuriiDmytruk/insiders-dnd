@@ -19,10 +19,13 @@ const Tab = ({ id, title }) => {
 
     return (
         <div
+        className="bg-yellow-300"
             ref={setNodeRef}
             {...attributes}
             {...listeners}
-            style={style}>{title}</div>
+            style={style}>
+            {title}
+        </div>
     )
 }
 
