@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App'
 
-import './input.css'
+import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <App />
+    <div className='w-[100vw] h-[100vh] bg-light-grey'>
+        <App />
+    </div>
+
 );

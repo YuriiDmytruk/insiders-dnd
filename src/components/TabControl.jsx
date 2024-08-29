@@ -5,17 +5,22 @@ import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable"
 
 
 const TabControl = () => {
+    const titles = ['Dashboard', 'Banking', 'Telefonie',
+        'Accounting', 'Verkauf', 'Statistic',
+        'Dashboard', 'Banking', 'Telefonie',
+        'Accounting',
+        'Telefonie', 'Accounting', 'Verkauf',
+        'Statistic', 'Dashboard', 'Banking',
+        'Telefonie', 'Accounting', 'Verkauf',
+        'Statistic']
 
     const [tabs, setTabs] = useState(
-        [
-            { id: 1, title: 'Object1', fixed: false },
-            { id: 2, title: 'Object2', fixed: true },
-            { id: 3, title: 'Object3', fixed: false },
-            { id: 4, title: 'Object4', fixed: false },
-            { id: 5, title: 'Object5', fixed: false },
-            { id: 6, title: 'Object6', fixed: false },
-        ]
-    )
+        titles.map((_title, index) => ({
+            id: index,
+            title: _title,
+            fixed: false,
+        }))
+    );
 
     const changeFixedState = (id) => {
         setTabs(prevTabs =>
@@ -28,9 +33,9 @@ const TabControl = () => {
     const getTaskPosition = id => tabs.findIndex(tab => tab.id === id)
 
     const handleDragEnd = event => {
-        const {active, over} = event
+        const { active, over } = event
 
-        if(active.id === over.id) return
+        if (active.id === over.id) return
 
         setTabs(tabs => {
             const originalPos = getTaskPosition(active.id)
@@ -50,7 +55,7 @@ const TabControl = () => {
 
     return (
         <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
-            <TabList tabs={tabs} changeFixedState={changeFixedState}/>
+            <TabList tabs={tabs} changeFixedState={changeFixedState} />
         </DndContext>
     )
 }
